@@ -41,6 +41,13 @@ if __name__ == '__main__':
 
     url = 'https://movie.douban.com/top250?start={}&filter='
 
+    with open('doubanTop250.csv', mode='w', encoding='utf-8', newline='') as f:
+        # mode='a'         追加写入csv文件
+        # encoding='utf-8' 解决写入中文乱码的问题
+        # newline=''       解决写入csv文件自动换行的问题
+        csvwriter = csv.writer(f)
+        csvwriter.writerow(['电影名称', '年份', '评分', '评价人数'])
+
     for i in range(0, 250, 25):
         url.format(i)  # i=1, url='https://movie.douban.com/top250?start=1&filter='
         get_doubanTop250(url)
