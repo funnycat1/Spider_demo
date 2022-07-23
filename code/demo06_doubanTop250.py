@@ -15,7 +15,7 @@ def get_doubanTop250(url):
     # print(resp.text)
     page_content = resp.text
 
-    # 解析数据
+    # 解析数据 re.S: 让.能匹配换行符
     obj = re.compile(r'<li>.*?<span class="title">(?P<movie_name>.*?)</span>'
                      r'.*?<p class="">.*?(?P<movie_year>\d+)'
                      r'.*?<span class="rating_num" property="v:average">(?P<movie_score>.*?)</span>'
