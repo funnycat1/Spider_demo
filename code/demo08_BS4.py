@@ -32,7 +32,7 @@ for img_src in img_list:
     img_resp = requests.get(src)
     img_resp.content  # 拿到的字节
     img_name = src.split("/")[-1]  # 图片的名字，url 中的最后一个 / 以后的内容
-    img_path = "C:/Users/hongcc/IdeaProjects/python/Spider_demo/img/"
+    img_path = "../img/"
     with open(img_path+img_name, mode="wb") as f:
         f.write(img_resp.content)
 
