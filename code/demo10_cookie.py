@@ -16,8 +16,8 @@ session = requests.session()
 url = "https://passport.17k.com/ck/user/login"
 
 data = {
-    "loginName": "13986424225",
-    "password": "a741852"
+    "loginName": "*******",
+    "password": "*******"
 }
 
 resp = session.post(url, data=data)
