@@ -6,7 +6,7 @@
 import requests
 import csv
 import time
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 
 
 def download_one_page(url, header, dat):
@@ -53,7 +53,7 @@ if __name__ == "__main__":
     }
 
     dat = {
-        "limit": 20,
+        "limit": 100,
         "current": 1,
         "pubDateStartTime": "",
         "pubDateEndTime": "",
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     }
     # download_one_page(url, header, dat)
 
-    # # 单线程下载前100页的数据
+    # ############### 单线程下载前100页的数据
     # for i in range(1, 101):
     #     dat["current"] = i
     #     download_one_page(url, header, dat)
@@ -71,14 +71,24 @@ if __name__ == "__main__":
     # time_sum = time_end - time_start
     # print("单线程同时写入前100页数据耗时：", time_sum)
 
-    # 多线程下载，开辟一个包含50个线程的线程池
-    with ThreadPoolExecutor(50) as t:
+    # ############### 多线程下载，开辟一个包含50个线程的线程池
+    # with ThreadPoolExecutor(50) as t:
+    #     for i in range(1, 101):  # 前100页的数据，每页20条，100*20=20000
+    #         dat["current"] = i
+    #         t.submit(download_one_page(url, header, dat))
+    #
+    # time_end = time.time()  # 计时结束
+    # time_sum = time_end - time_start
+    # print("50个线程同时写入前100页数据耗时：", time_sum)
+
+    ############### 多进程下载，开辟一个包含50个线程的线程池
+    with ProcessPoolExecutor(50) as p:
         for i in range(1, 101):  # 前100页的数据，每页20条，100*20=20000
             dat["current"] = i
-            t.submit(download_one_page(url, header, dat))
+            p.submit(download_one_page(url, header, dat))
 
     time_end = time.time()  # 计时结束
     time_sum = time_end - time_start
-    print("50个线程同时写入前100页数据耗时：", time_sum)
+    print("50个进程同时写入前100页数据耗时：", time_sum)
 
     print("Well done")
