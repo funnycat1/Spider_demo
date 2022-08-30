@@ -41,7 +41,7 @@ if __name__ == '__main__':
     # # t.run()  # 方法的调用，单线程
     # t.start()  # 开启新线程，子线程
 
-    # 开多个子线程，通过 args 参数进行区分
+    # 开多个子线程，通过 args 参数进行区分，args 接收元组，所以一定有个逗号","
     t1 = Thread(target=func, args=("第一个子线程",))
     t1.start()
 
