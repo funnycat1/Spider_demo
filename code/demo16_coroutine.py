@@ -55,12 +55,17 @@ async def main():
     # await f2  # await 挂起操作放在协程对象前
 
     # 第二种写法（推荐）
-    f2 = func2()
+    f2 = func2()  # f2 一个协程对象
     f3 = func3()
     f4 = func4()
-    tasks = [
+    tasks = [   # py3.8 不推荐，py3.11将抛弃
         f2, f3, f4
     ]
+    # tasks = [   # 推荐自己将协程对象转换为 task，运行结果上同，当前py3.6不支持这个
+    #     asyncio.create_task(f2),
+    #     asyncio.create_task(f3),
+    #     asyncio.create_task(f4),
+    # ]
     await asyncio.wait(tasks)
 
 
